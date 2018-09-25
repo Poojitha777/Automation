@@ -5,7 +5,7 @@ import java.io.File;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class Demo {
+public class A {
 
 	public static void main(String[] args) throws Exception {
 		Workbook w = WorkbookFactory.create(new File("./data/Book1.xlsx"));
