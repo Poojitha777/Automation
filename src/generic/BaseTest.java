@@ -28,7 +28,6 @@ abstract public class BaseTest implements IAutoConst {
 		System.setProperty(gecko_key,gecko_value);
 	}
 
-	
 	@BeforeMethod
 	public void openApplication()
 	{
