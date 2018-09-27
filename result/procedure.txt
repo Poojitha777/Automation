@@ -1,0 +1,58 @@
+
+1 create a folder 'result' inside java project
+2 create excel file "summary.xlsx"
+3 in sheet1 create table
+|pass| Fail|
+|3   |  1  |
+4 create a chart
+5 save excel
+6 copy summary.xlsx in to result folder
+7 create a method inside Utility class as shown below
+
+
+
+	public static void writeResultToXL(String path, String sheet, int pass, int fail) {
+		try{
+			Workbook w = WorkbookFactory.create(new FileInputStream(path));
+			w.getSheet(sheet).getRow(1).getCell(0).setCellValue(pass);
+			w.getSheet(sheet).getRow(1).getCell(1).setCellValue(fail);
+			w.write(new FileOutputStream(path));		
+			}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	  }
+	  
+	  
+8 inside generic package create: Result class implements ITestListeners
+9 add implemented methods
+10 update the methods onTestSuccess on TestFailure & onFinish
+
+
+public class Result implements ITestListener{
+	static int passCount=0, failCount=0;
+		@Override
+	public void onTestSuccess(ITestResult result) {
+		passCount++;	
+		
+	}
+
+	@Override
+	public void onTestFailure(ITestResult result) {
+		failCount++;
+		
+	}
+	@Override
+	public void onFinish(ITestContext context) {
+		Reporter.log("pass: "+passCount,true);
+		Reporter.log("fail: "+failCount,true);
+		Utility.writeResultToXL("./result/summary.xlsx", "sheet1", passCount, failCount);
+	}
+	
+	10 add @Listeners(Result.class) above BaseTest
+	@Listeners(Result.class)
+    abstract public class BaseTest implements IAutoConst {
+	
+
+
